@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponco Premium - Coffee Shop</title>
+    <style>
+        /* --- PALET WARNA & BASE STYLE --- */
+        :root {
+            --primary-brown: #4A3525;
+            --light-brown: #8C6A50;
+            --creamy-white: #F4F1EA;
+            --dark-text: #2C1E15;
+            --white: #FFFFFF;
+            --accent-red: #E50914;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--creamy-white);
+            background-image: radial-gradient(#8C6A50 0.75px, transparent 0.75px), radial-gradient(#8C6A50 0.75px, #F4F1EA 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            color: var(--dark-text);
+        }
+
+        /* Input untuk form login */
+    .auth-input {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        width: 100%;
+    }
+
+    #mainContent {
+        display: none; /*beranda disembunyikan sampai user login */
+    }
+
+        /* --- NAVBAR --- */
+        header {
+            background-color: var(--primary-brown);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--creamy-white);
+            text-decoration: none;
+        }
+
+        .brand-logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--creamy-white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--creamy-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-brown);
+        }
+
+        .currency-select {
+            background-color: var(--light-brown);
+            color: var(--creamy-white);
+            border: 1px solid var(--creamy-white);
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .currency-select option {
+            background-color: var(--primary-brown);
+            color: var(--white);
+        }
+
+        .cart-icon-btn {
+            background: none;
+            border: none;
+            color: var(--creamy-white);
+            cursor: pointer;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background-color: var(--accent-red);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 65px;
+            background-color: #2c1e15;
+            background-size: cover;
+            background-position: center;
+            background-image: url('imageponco.jpeg');
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(20, 10, 5, 0.8) 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--creamy-white);
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.8);
+            font-weight: 800;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 30px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .about-section h2 {
+            color: var(--primary-brown);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--light-brown);
+            margin: 8px auto 0;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* --- WHY US SECTION --- */
+        .why-us-section {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .why-us-card {
+            background-color: var(--white);
+            padding: 25px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid rgba(140, 106, 80, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .why-us-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .why-us-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .why-us-card h3 {
+            color: var(--primary-brown);
+            margin-bottom: 10px;
+        }
+
+        .why-us-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* --- MENU SECTION --- */
+        .menu-section {
+            max-width: 1200px;
+            margin: 60px auto 40px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-brown);
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(140, 106, 80, 0.2);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .menu-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 20px;
+        }
+
+        .menu-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary-brown);
+        }
+
+        .menu-price {
+            font-weight: bold;
+            color: var(--light-brown);
+            font-size: 1.2rem;
+        }
+
+        /* --- LOKASI SECTION --- */
+        .location-section {
+            background-color: rgba(239, 236, 228, 0.9);
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .opening-hours {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: var(--primary-brown);
+            color: var(--creamy-white);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .map-container {
+            max-width: 800px;
+            margin: 25px auto 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-location {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: var(--primary-brown);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-location:hover {
+            background-color: #35251A;
+        }
+
+        /* --- SOCIAL MEDIA & CONTACT SECTION --- */
+        .social-section {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--white);
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 1px solid rgba(140, 106, 80, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .social-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        .social-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* --- MODAL DETAIL PRODUK --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--creamy-white);
+            max-width: 600px;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.3s;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary-brown);
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .modal-details {
+            padding: 25px;
+        }
+
+        .modal-details h2 {
+            color: var(--primary-brown);
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .qty-btn {
+            background-color: var(--light-brown);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover { background-color: var(--primary-brown); }
+
+        .qty-number {
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .btn-primary { background-color: var(--primary-brown); color: white; }
+        .btn-primary:hover { background-color: #35251A; }
+
+        .btn-secondary { background-color: var(--light-brown); color: white; }
+        .btn-secondary:hover { background-color: #73543D; }
+
+        /* --- SIDEBAR KERANJANG --- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background-color: var(--white);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.15);
+            z-index: 1500;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .cart-sidebar.active { right: 0; }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--creamy-white);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .cart-items-container {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info h4 {
+            color: var(--primary-brown);
+            margin-bottom: 4px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--accent-red);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .btn-clear-cart {
+            background-color: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .btn-clear-cart:hover { background-color: #b30000; }
+
+        .cart-footer {
+            border-top: 2px solid var(--creamy-white);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-brown);
+            color: var(--creamy-white);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.95rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo-area">
+                <img id="brandLogo" alt="Logo Ponco Premium" class="brand-logo-img">
+                <span class="brand-name">Ponco Premium</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#">Beranda</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#lokasi">Lokasi</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+                <!-- MENU LOGIN / LOGOUT -->
+    <li id="navAuthGuest">
+        <a href="#login" 
+        onclick="document.getElementById('loginPage').scrollIntoView({behavior:'smooth'});">
+            Login
+        </a>
+    </li>
+    <li id="navAuthUser" style="display:none;">
+        <span id="navUserName">Halo, User</span> |
+        <a href="#" onclick="logout()">Logout</a>
+    </li>
+    <!-- SELESAI TAMBAHAN -->
+            
+                    <select class="currency-select" id="currencySelect" onchange="changeCurrency()">
+                        <option value="IDR">IDR (Rp)</option>
+                        <option value="USD">USD ($)</option>
+                    </select>
+                </li>
+                <li>
+                    <button class="cart-icon-btn" onclick="toggleCart()">
+                        🛒 Keranjang <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HALAMAN LOGIN (MUNCUL DULU SEBELUM BERANDA) -->
+<section class="about-section" id="loginPage">
+    <h2>Login ke Ponco Premium</h2>
+    <p>Silakan login terlebih dahulu untuk mengakses beranda dan menu.</p>
+    <div style="max-width:300px; margin:20px auto 0; text-align:left;">
+        <input id="loginUsername" type="text" placeholder="Username" class="auth-input" style="margin-bottom:10px;">
+        <input id="loginPassword" type="password" placeholder="Password" class="auth-input" style="margin-bottom:10px;">
+        <button class="btn btn-primary" style="width:100%;" onclick="doLogin()">Login</button>
+    </div>
+</section>
+
+<!-- SEMUA KONTEN BERANDA DIBUNGKUS DI SINI -->
+<div id="mainContent">
+    <section class="hero" id="heroSection">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Ponco Premium Coffee</h1>
+            <p>Brew the Best, Forget the Rest</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <h2>Tentang Ponco Premium</h2>
+        <p>
+            Selamat datang di Ponco Premium. Kami menyajikan racikan kopi premium pilihan yang diseduh oleh barista berpengalaman. Berawal dari kecintaan terhadap biji kopi nusantara, kami menghadirkan suasana kedai kopi yang hangat dan cita rasa otentik yang tak terlupakan untuk menemani hari-hari Anda.
+        </p>
+    </section>
+
+    <!-- WHY US SECTION -->
+    <section class="why-us-section">
+        <h2 class="section-title">Why Us?</h2>
+        <div class="why-us-grid">
+            <div class="why-us-card">
+                <div class="why-us-icon">📶</div>
+                <h3>Wi-Fi Gratis</h3>
+                <p>Nongkrong, kerja, atau nugas makin nyaman dengan koneksi internet cepat secara gratis.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon">💸</div>
+                <h3>Harga Ramah di Kantong</h3>
+                <p>Nikmati rasa kopi berkualitas tinggi dengan harga yang sangat bersahabat untuk semua kalangan.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon">📍</div>
+                <h3>Tempat Strategis</h3>
+                <p>Lokasi yang mudah dijangkau dari mana saja, cocok untuk kumpul santai bersama teman dan keluarga.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Menu Favorit Kami</h2>
+        <div class="grid-menu" id="menuContainer"></div>
+    </section>
+
+    <section class="location-section" id="lokasi">
+        <h2 class="section-title">Lokasi & Jam Operasional</h2>
+        <p>Kunjungi toko kami untuk menikmati kopi terbaik langsung di tempat.</p>
+        <div class="opening-hours">🕒 Jam Buka: 06.00 – 02.00 WIB</div>
+        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!11m12!1m3!1d3966.2764952044393!2d106.8248358!3d-6.2272559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <a href="https://share.google/XuklPKK0Wz4Lr1oCb" target="_blank" class="btn-location">📍 Buka di Google Maps</a>
+    </section>
+
+    <!-- SOCIAL MEDIA & CONTACT SECTION -->
+    <section class="social-section" id="kontak">
+        <h2 class="section-title">Hubungi & Ikuti Kami</h2>
+        <p>Tetap terhubung dengan Ponco Premium melalui media sosial dan saluran kontak kami.</p>
+        
+        <div class="social-links">
+            <!-- WHATSAPP -->
+            <a href="https://wa.me/6281396673295" target="_blank" class="social-card">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="#25D366">
+                    <path d="M12.012 2c-5.508 0-9.989 4.478-9.99 9.984 0 1.762.459 3.48 1.332 5.001l-1.416 5.176 5.297-1.389c1.472.802 3.134 1.225 4.773 1.226h.004c5.505 0 9.986-4.478 9.988-9.985 0-2.668-1.039-5.177-2.927-7.065-1.888-1.887-4.398-2.926-7.061-2.926zm5.836 14.123c-.246.693-1.433 1.328-1.979 1.412-.505.077-1.162.115-3.327-.781-2.768-1.147-4.549-3.957-4.687-4.142-.138-.184-1.121-1.492-1.121-2.846 0-1.354.707-2.02.959-2.296.252-.276.553-.345.738-.345.184 0 .368.002.531.009.172.008.404-.065.632.482.235.564.798 1.947.868 2.088.07.141.117.306.023.493-.094.188-.141.306-.282.47-.141.165-.296.368-.423.494-.141.141-.288.295-.124.577.164.282.729 1.202 1.564 1.944 1.074.954 1.98 1.25 2.262 1.391.282.141.447.118.612-.07.165-.188.706-.823.894-1.105.188-.282.376-.235.635-.141.259.094 1.644.776 1.926.917.282.141.47.211.54.329.07.118.07.682-.176 1.375z"/>
+                </svg>
+                <span>+62 813-9667-3295</span>
+            </a>
+
+            <!-- INSTAGRAM -->
+            <a href="https://instagram.com/poncopremium" target="_blank" class="social-card">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="#E4405F">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span>poncopremium</span>
+            </a>
+
+            <!-- TIKTOK -->
+            <a href="https://tiktok.com/@poncopremium" target="_blank" class="social-card">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="#000000">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.56-1.31 1.56-1.28 2.55.02.82.42 1.61 1.08 2.08.77.57 1.8.72 2.72.48 1.02-.25 1.88-.99 2.21-1.98.13-.42.18-.87.18-1.31.02-4.14.01-8.28.01-12.42z"/>
+                </svg>
+                <span>poncopremium</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Ponco Premium Coffee. All Rights Reserved. | Buka Setiap Hari 06.00 – 02.00 WIB</p>
+    </footer>
+    </div> <!-- penutup #mainContent -->
+
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Keranjang Belanja</h3>
+            <button class="btn-delete" onclick="toggleCart()" style="font-size: 1.2rem;">✕</button>
+        </div>
+        <div class="cart-items-container" id="cartItems"></div>
+        <div class="cart-footer">
+            <button class="btn-clear-cart" onclick="clearCart()">Hapus Semua Pesanan</button>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalText">Rp 0</span>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="checkoutWhatsApp()">Beli Sekarang via WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+    
+        const img3 = new Image();
+        img3.crossOrigin = "anonymous";
+        img3.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 300; canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#E50914';
+            ctx.beginPath(); ctx.arc(150, 150, 150, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 10;
+            ctx.strokeRect(40, 40, 220, 220);
+            ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 110px serif'; ctx.textAlign = 'center';
+            ctx.fillText('PP', 150, 160);
+            ctx.font = 'bold 20px sans-serif';
+            ctx.fillText('PONCO PREMIUM', 150, 210);
+            document.getElementById('brandLogo').src = canvas.toDataURL('image/png');
+        };
+        img3.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+        const WHATSAPP_NUMBER = "6281396673295"; 
+        const USD_EXCHANGE_RATE = 16000;
+        let currentCurrency = "IDR";
+        let currentUser = null;
+
+        const products = [
+            { id: 1, name: "Kopi Pancong", price: 5000, desc: "Kopi hitam porsi sedang dengan cita rasa pekat khas Ponco Premium.", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500" },
+            { id: 2, name: "Kopi Penuh", price: 6000, desc: "Kopi hitam manis porsi penuh yang diseduh sempurna.", img: "kopipenuh.jpeg" },
+            { id: 3, name: "Sanger Panas", price: 7000, desc: "Racikan khas kopi saring dan susu kental manis panas khas Aceh.", img: "sangerpanas.jpeg" },
+            { id: 4, name: "Sanger SP", price: 8000, desc: "Sanger Spesial dengan cita rasa kopi yang lebih gurih dan mantap.", img: "sangersp.jpeg" },
+            { id: 5, name: "Sanger Dingin", price: 10000, desc: "Sanger nikmat dengan paduan es segar pelepas dahaga.", img: "sangerdingin.jpeg" },
+            { id: 6, name: "Kopi Dingin", price: 10000, desc: "Es kopi hitam murni yang dingin dan menyegarkan.", img: "kopidingin.jpeg" },
+            { id: 9, name: "TST", price: 12000, desc: "Teh Susu Telur, minuman penambah stamina tradisional yang nikmat.", img: "tst.jpeg" },
+            { id: 11, name: "Sachet Dingin", price: 8000, desc: "Minuman sachet rasa pilihan yang disajikan dingin.", img: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=500" },
+            { id: 13, name: "Sachet Panas", price: 7000, desc: "Minuman sachet pilihan disajikan hangat.", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500" },
+            { id: 14, name: "Sachet Panas + Susu", price: 8000, desc: "Sachet hangat gurih dengan perpaduan susu kental manis.", img: "https://images.unsplash.com/photo-1534778101976-62847782c213?w=500" },
+            { id: 15, name: "Teh Dingin", price: 6000, desc: "Es teh manis klasik yang dingin dan menyegarkan.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500" },
+            { id: 16, name: "Teh Panas", price: 5000, desc: "Teh manis hangat dengan aroma harum melati.", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500" },
+            { id: 17, name: "Teh Tarek Manual Dingin", price: 10000, desc: "Teh tarik ditarik manual dengan busa lembut disajikan dingin.", img: "tehtarikmanualdingin.jpeg" },
+            { id: 18, name: "Teh Hijau + Susu Dingin", price: 10000, desc: "Es teh hijau segar dipadu susu kental manis.", img: "tehhijaususudingin.jpeg" },
+            { id: 20, name: "Teh Hijau Panas", price: 7000, desc: "Seduhan teh hijau hangat pemenyorot suasana.", img: "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?w=500" },
+            { id: 21, name: "Fanta", price: 6000, desc: "Fanta rasa stroberi dingin dari kulkas.", img: "fanta.jpeg" },
+            { id: 22, name: "Sprite", price: 6000, desc: "Sprite lemon lime segar dingin.", img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=500" },
+            { id: 23, name: "Mineral", price: 4000, desc: "Air mineral kemasan dingin penyegar dahaga.", img: "airmineral.jpeg" },
+            { id: 24, name: "Fanta + Susu", price: 8000, desc: "Soda gembira merah perpaduan Fanta dan susu kental manis.", img: "fantasusu.jpeg" },
+        ];
+
+        let cart = [];
+        let selectedProduct = null;
+        let currentModalQty = 1;
+
+        function formatPrice(amountInIDR) {
+            if (currentCurrency === "USD") {
+                const amountInUSD = amountInIDR / USD_EXCHANGE_RATE;
+                return `$ ${amountInUSD.toFixed(2)}`;
+            }
+            return `Rp ${amountInIDR.toLocaleString('id-ID')}`;
+        }
+
+        function doLogin() {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    if (!username || !password) {
+        alert('Username dan password wajib diisi.');
+        return;
+    }
+
+    // Demo: anggap login selalu berhasil
+    currentUser = username;
+
+    // Tampilkan beranda, sembunyikan halaman login
+    document.getElementById('mainContent').style.display = 'block';
+    document.getElementById('loginPage').style.display = 'none';
+
+    updateAuthNav();
+}
+
+function logout() {
+    if (!confirm('Yakin ingin logout?')) return;
+
+    currentUser = null;
+
+    // Saat logout: kembali ke halaman login, sembunyikan beranda
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('loginPage').style.display = 'block';
+
+    updateAuthNav();
+}
+
+function updateAuthNav() {
+    const guestNav = document.getElementById('navAuthGuest');
+    const userNav  = document.getElementById('navAuthUser');
+    const userNameSpan = document.getElementById('navUserName');
+
+    if (!guestNav || !userNav || !userNameSpan) return; // jaga-jaga
+
+    if (currentUser) {
+        guestNav.style.display = 'none';
+        userNav.style.display  = 'inline-block';
+        userNameSpan.textContent = `Halo, ${currentUser}`;
+    } else {
+        guestNav.style.display = 'inline-block';
+        userNav.style.display  = 'none';
+    }
+}
+
+        function renderMenu() {
+            const menuContainer = document.getElementById('menuContainer');
+            menuContainer.innerHTML = '';
+            
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                card.onclick = () => openModal(product.id);
+                
+                card.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}" class="menu-img">
+                    <div class="menu-info">
+                        <h3>${product.name}</h3>
+                        <p class="menu-price">${formatPrice(product.price)}</p>
+                    </div>
+                `;
+                menuContainer.appendChild(card);
+            });
+        }
+
+        function changeCurrency() {
+            currentCurrency = document.getElementById('currencySelect').value;
+            renderMenu();
+            updateCartUI();
+            if (selectedProduct && document.getElementById('productModal').style.display === 'flex') {
+                openModal(selectedProduct.id);
+            }
+        }
+
+        function openModal(id) {
+            selectedProduct = products.find(p => p.id === id);
+            currentModalQty = 1;
+            const modalBody = document.getElementById('modalBody');
+
+            modalBody.innerHTML = `
+                <img src="${selectedProduct.img}" alt="${selectedProduct.name}" class="modal-img">
+                <div class="modal-details">
+                    <h2>${selectedProduct.name}</h2>
+                    <p class="menu-price" style="margin-bottom:10px;">${formatPrice(selectedProduct.price)}</p>
+                    <p class="modal-desc">${selectedProduct.desc}</p>
+                    
+                    <div class="qty-control">
+                        <span>Jumlah:</span>
+                        <button class="qty-btn" onclick="changeModalQty(-1)">-</button>
+                        <span class="qty-number" id="modalQtyVal">1</span>
+                        <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" onclick="addToCart(${selectedProduct.id})">Masukkan Keranjang</button>
+                        <button class="btn btn-primary" onclick="directBuy(${selectedProduct.id})">Beli Langsung</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function changeModalQty(amount) {
+            currentModalQty += amount;
+            if (currentModalQty < 1) currentModalQty = 1;
+            document.getElementById('modalQtyVal').innerText = currentModalQty;
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+
+        function addToCart(id) {
+            const prod = products.find(p => p.id === id);
+            const exist = cart.find(item => item.id === id);
+            
+            if(exist) {
+                exist.qty += currentModalQty;
+            } else {
+                cart.push({ ...prod, qty: currentModalQty });
+            }
+            updateCartUI();
+            closeModal();
+            document.getElementById('cartSidebar').classList.add('active');
+        }
+
+        function updateCartQty(id, amount) {
+            const item = cart.find(i => i.id === id);
+            if(item) {
+                item.qty += amount;
+                if(item.qty <= 0) {
+                    removeFromCart(id);
+                    return;
+                }
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function clearCart() {
+            if(cart.length === 0) return;
+            if(confirm("Apakah kamu yakin ingin mengosongkan keranjang?")) {
+                cart = [];
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotalText = document.getElementById('cartTotalText');
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let totalItems = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                totalItems += item.qty;
+
+                const row = document.createElement('div');
+                row.className = 'cart-item';
+                row.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <small>${formatPrice(itemTotal)}</small>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="qty-btn" style="width:24px; height:24px; font-size:0.9rem;" onclick="updateCartQty(${item.id}, -1)">-</button>
+                        <span class="qty-number" style="font-size:0.92rem;">${item.qty}</span>
+                        <button class="qty-btn" style="width:24px; height:24px; font-size:0.9rem;" onclick="updateCartQty(${item.id}, 1)">+</button>
+                        <button class="btn-delete" style="margin-left:8px;" onclick="removeFromCart(${item.id})">Hapus</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+
+            cartCount.innerText = totalItems;
+            cartTotalText.innerText = formatPrice(total);
+        }
+
+        function directBuy(id) {
+            const prod = products.find(p => p.id === id);
+            const total = prod.price * currentModalQty;
+            const text = `Halo Ponco Premium, saya ingin membeli langsung:\n- ${prod.name} (${currentModalQty}x) : ${formatPrice(total)}\n\nTotal Harga: ${formatPrice(total)}`;
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) {
+                alert("Keranjang belanja kamu masih kosong nih!");
+                return;
+            }
+
+            let text = "Halo Ponco Premium, saya mau pesan menu berikut:\n\n";
+            let total = 0;
+            
+            cart.forEach(item => {
+                const subtotal = item.price * item.qty;
+                text += `- ${item.name} (${item.qty}x) : ${formatPrice(subtotal)}\n`;
+                total += subtotal;
+            });
+
+            text += `\n*Total Keseluruhan: ${formatPrice(total)}*`;
+            
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        renderMenu();
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
